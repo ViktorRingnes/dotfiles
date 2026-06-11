@@ -13,3 +13,9 @@ set WIN_USER at the top of zshrc on a new machine
 - ripgrep (Telescope live grep)
 - node and npm, then `npm i -g @fsouza/prettierd prettier` for formatting
 - a nerd font in the terminal for the icons
+- fzf 0.48+ from github releases
+- lazygit from github releases
+- `cargo binstall fd-find bat eza zoxide just jaq ast-grep` (atuin too, but
+  `cargo install atuin --locked` on ubuntu 22.04, the prebuilt needs newer glibc)
+- `go install github.com/joshmedeski/sesh/v2@latest`
+- prefix+I inside tmux once, to install tpm plugins

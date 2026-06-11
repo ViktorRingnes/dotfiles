@@ -8,7 +8,7 @@ return {
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		local blink = require("blink.cmp")
 		local keymap = vim.keymap
 		local qt_clangd_flag_pattern = "^Unknown argument:%s*['\"]?%-mno%-direct%-extern%-access['\"]?"
 
@@ -92,7 +92,7 @@ return {
 			end,
 		})
 
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		local capabilities = blink.get_lsp_capabilities()
 
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 		for type, icon in pairs(signs) do
@@ -115,7 +115,7 @@ return {
 		-- Language servers
 		-- ============================
 
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		-- ============================
 		-- TypeScript / TSX (NEW API)
@@ -210,29 +210,7 @@ return {
 					})
 				end,
 			})
-		-- ============================
-		-- Rust
-		-- ============================
-		vim.lsp.config("rust_analyzer", {
-			capabilities = capabilities,
-			settings = {
-				["rust-analyzer"] = {
-					inlayHints = {
-						typeHints = { enable = true },
-
-						parameterHints = { enable = false },
-						chainingHints = { enable = false },
-						bindingModeHints = { enable = false },
-						closureReturnTypeHints = { enable = "never" },
-						lifetimeElisionHints = { enable = "never" },
-						reborrowHints = { enable = false },
-						closingBraceHints = { enable = false },
-					},
-				},
-			},
-		})
-
-		vim.lsp.enable("rust_analyzer")
+		-- Rust is handled by rustaceanvim, which starts its own rust-analyzer.
 
 		-- ============================
 		-- Typst

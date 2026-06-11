@@ -60,19 +60,44 @@ else
 fi
 unset _zcompdump
 
-# Load zsh plugins
+# Load zsh plugins. fzf-tab must come after compinit and before
+# autosuggestions/syntax-highlighting.
+[ -f ~/.zsh/evalcache/evalcache.plugin.zsh ] && source ~/.zsh/evalcache/evalcache.plugin.zsh
+[ -f ~/.zsh/fzf-tab/fzf-tab.plugin.zsh ] && source ~/.zsh/fzf-tab/fzf-tab.plugin.zsh
+[ -f ~/.zsh/zsh-abbr/zsh-abbr.plugin.zsh ] && source ~/.zsh/zsh-abbr/zsh-abbr.plugin.zsh
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
+  zstyle ':fzf-tab:complete:*' fzf-preview '[ -f $realpath ] && bat --color=always --style=numbers --line-range=:200 $realpath || eza -la --color=always $realpath 2>/dev/null'
+fi
+
+command -v zoxide >/dev/null 2>&1 && _evalcache zoxide init zsh
+command -v atuin >/dev/null 2>&1 && _evalcache atuin init zsh --disable-up-arrow
 
 # Set up zsh-autosuggestions
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#808080"
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 # Enable colored output for ls
-alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza'
+  alias ll='eza -la --git'
+  alias la='eza -a'
+  alias l='eza -l'
+  alias lt='eza --tree --level=2'
+else
+  alias ls='ls --color=auto'
+  alias ll='ls -alF'
+  alias la='ls -A'
+  alias l='ls -CF'
+fi
+command -v bat >/dev/null 2>&1 && alias cat='bat --paging=never'
+command -v jaq >/dev/null 2>&1 && alias jq='jaq'
 
 # Enable colored output for grep
 alias grep='grep --color=auto'
@@ -106,7 +131,7 @@ esac
 
 # starship prompt (keep last so it wins the prompt). Shows repo name + git
 # branch + status; config at ~/.config/starship.toml
-eval "$(starship init zsh)"
+_evalcache starship init zsh
 
 # opencode
 [ -d "$HOME/.opencode/bin" ] && export PATH=$HOME/.opencode/bin:$PATH

@@ -22,9 +22,16 @@ link config/starship.toml "$HOME/.config/starship.toml"
 link config/fastfetch "$HOME/.config/fastfetch"
 
 mkdir -p "$HOME/.zsh"
-[ -d "$HOME/.zsh/zsh-autosuggestions" ] \
-  || git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
-[ -d "$HOME/.zsh/zsh-syntax-highlighting" ] \
-  || git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting "$HOME/.zsh/zsh-syntax-highlighting"
+clone() {
+  [ -d "$HOME/.zsh/$2" ] || git clone --depth 1 "$1" "$HOME/.zsh/$2"
+}
+clone https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
+clone https://github.com/zsh-users/zsh-syntax-highlighting zsh-syntax-highlighting
+clone https://github.com/Aloxaf/fzf-tab fzf-tab
+clone https://github.com/mroth/evalcache evalcache
+[ -d "$HOME/.zsh/zsh-abbr" ] \
+  || git clone --depth 1 --recurse-submodules https://github.com/olets/zsh-abbr "$HOME/.zsh/zsh-abbr"
+[ -d "$HOME/.tmux/plugins/tpm" ] \
+  || git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 
 echo "done"
