@@ -4,7 +4,7 @@ local koda = require("viktor.core.koda")
 
 local config = {
 	themes = colorschemes.names(),
-	default = "koda",
+	default = "tokyonight-moon",
 	state_file = vim.fn.stdpath("state") .. "/theme.txt",
 }
 

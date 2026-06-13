@@ -135,3 +135,4 @@ _evalcache starship init zsh
 
 # opencode
 [ -d "$HOME/.opencode/bin" ] && export PATH=$HOME/.opencode/bin:$PATH
+alias cc='claude --dangerously-skip-permissions'

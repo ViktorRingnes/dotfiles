@@ -10,6 +10,10 @@ M.items = {
 		schemes = { "plain", "plain-cterm" },
 	},
 	{
+		repo = "vague2k/vague.nvim",
+		schemes = { "vague" },
+	},
+	{
 		repo = "folke/tokyonight.nvim",
 		schemes = {
 			"tokyonight",

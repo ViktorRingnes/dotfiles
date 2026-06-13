@@ -23,6 +23,7 @@ opt.cursorline = true
 opt.termguicolors = true
 opt.background = "dark"
 opt.signcolumn = "yes"
+opt.winborder = "rounded"
 
 opt.backspace = "indent,eol,start"
 
