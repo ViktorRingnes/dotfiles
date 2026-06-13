@@ -8,7 +8,7 @@ return {
 				default_settings = {
 					["rust-analyzer"] = {
 						inlayHints = {
-							typeHints = { enable = true },
+							typeHints = { enable = false },
 							parameterHints = { enable = false },
 							chainingHints = { enable = false },
 							bindingModeHints = { enable = false },
