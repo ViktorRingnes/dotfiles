@@ -34,4 +34,8 @@ clone https://github.com/mroth/evalcache evalcache
 [ -d "$HOME/.tmux/plugins/tpm" ] \
   || git clone --depth 1 https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 
+if ! command -v laziergit >/dev/null && command -v cargo >/dev/null; then
+  cargo install laziergit
+fi
+
 echo "done"
